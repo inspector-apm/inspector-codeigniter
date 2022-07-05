@@ -1,2 +1,3 @@
-# inspector-codigniter
-Connect your CodIgniter application to Inspector.
+# Inspector | Code Execution Monitoring tool
+
+Simple code execution monitoring, built for Laravel developers.

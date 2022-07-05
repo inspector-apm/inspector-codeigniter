@@ -1,0 +1,37 @@
+{
+  "name": "inspector-apm/inspector-codigniter",
+  "description": "Simple Code Execution Monitoring for CodIgniter applications.",
+  "keywords": ["monitoring", "php", "inspector", "codigniter"],
+  "license": "MIT",
+  "authors": [
+    {
+      "email": "benedict@prysis.co.za",
+      "name": "Phomolo Benedict Tshaba"
+    }
+  ],
+  "config": {
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=7.2",
+    "inspector-apm/inspector-php": "^3.7"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Inspector\\CodIgniter\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Inspector\\CodIgniter\\": "tests"
+    }
+  },
+  "scripts": {
+  },
+  "extra": {
+  }
+}
