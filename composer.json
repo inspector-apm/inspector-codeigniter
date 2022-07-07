@@ -1,12 +1,12 @@
 {
-  "name": "inspector-apm/inspector-codigniter",
-  "description": "Simple Code Execution Monitoring for CodIgniter applications.",
-  "keywords": ["monitoring", "php", "inspector", "codigniter"],
+  "name": "inspector-apm/inspector-codeigniter",
+  "description": "Simple Code Execution Monitoring for CodeIgniter applications.",
+  "keywords": ["monitoring", "php", "inspector", "codeigniter4"],
   "license": "MIT",
   "authors": [
     {
       "email": "benedict@prysis.co.za",
-      "name": "Phomolo Benedict Tshaba"
+      "name": "Benedict Tshaba"
     }
   ],
   "config": {
@@ -19,19 +19,41 @@
     "inspector-apm/inspector-php": "^3.7"
   },
   "require-dev": {
+    "codeigniter/coding-standard": "^1.1",
+    "codeigniter4/codeigniter4": "^4.2",
+    "phpunit/phpunit": "^9.0"
   },
   "autoload": {
     "psr-4": {
-      "Inspector\\CodIgniter\\": "src"
+      "Inspector\\CodeIgniter\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Inspector\\CodIgniter\\": "tests"
+      "Inspector\\CodeIgniter\\Tests\\": "tests",
+      "Inspector\\CodeIgniter\\Tests\\Support\\": "tests/_support"
     }
   },
   "scripts": {
+    "post-update-cmd": [
+      "bash -c \"if [ -f admin/setup.sh ]; then bash admin/setup.sh; fi\""
+    ],
+    "ci": [
+      "Composer\\Config::disableProcessTimeout",
+      "@deduplicate",
+      "@test",
+      "@style"
+    ],
+    "deduplicate": "phpcpd app/ src/",
+    "style": "php-cs-fixer fix --verbose --ansi --using-cache=no",
+    "test": "phpunit"
   },
   "extra": {
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/codeigniter4/CodeIgniter4"
+    }
+  ]
 }
