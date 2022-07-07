@@ -2,8 +2,8 @@
 
 namespace Inspector\CodeIgniter\Config;
 
-use CodeIgniter\Config\BaseService;
 use CodeIgniter\Config\BaseConfig;
+use CodeIgniter\Config\BaseService;
 use Inspector\CodeIgniter\Inspector;
 
 /**

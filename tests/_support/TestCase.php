@@ -2,9 +2,9 @@
 
 namespace Inspector\CodeIgniter\Tests\Support;
 
-use Inspector\CodeIgniter\Inspector;
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\Services;
+use Inspector\CodeIgniter\Inspector;
 
 abstract class TestCase extends CIUnitTestCase
 {
@@ -20,8 +20,8 @@ abstract class TestCase extends CIUnitTestCase
     {
         parent::setUp();
 
-        $config           = config('Inspector');
-        $this->inspector  = Inspector::getInstance($config);
+        $config          = config('Inspector');
+        $this->inspector = Inspector::getInstance($config);
 
         Services::injectMock('inspector', $this->inspector);
     }

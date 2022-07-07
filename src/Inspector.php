@@ -2,14 +2,11 @@
 
 namespace Inspector\CodeIgniter;
 
-use Inspector\Inspector as InspectorLibrary;
-use Inspector\Configuration;
-use Inspector\Models\Segment;
-
 use CodeIgniter\Config\BaseConfig;
+use Inspector\Configuration;
+use Inspector\Inspector as InspectorLibrary;
 
-use InvalidArgumentException;
-use RuntimeException;
+use Inspector\Models\Segment;
 
 /**
  * Allows developers to use the inspector library in CI4
@@ -20,13 +17,13 @@ class Inspector extends InspectorLibrary
 
     public static function getInstance(BaseConfig $config)
     {
-        $requestURI     = $_SERVER["REQUEST_URI"] ?? '';
+        $requestURI = $_SERVER['REQUEST_URI'] ?? '';
 
-        $configuration  = new Configuration($config->IngestionKey);
-        $inspector      = new self($configuration);
+        $configuration = new Configuration($config->IngestionKey);
+        $inspector     = new self($configuration);
 
-        /* Only start a transation if AutoInspect is set to true */
-        if($config->AutoInspect) {
+        // Only start a transation if AutoInspect is set to true
+        if ($config->AutoInspect) {
             $pathInfo = explode('?', $requestURI);
             $path     = array_shift($pathInfo);
 

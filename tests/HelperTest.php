@@ -2,6 +2,7 @@
 
 namespace Inspector\CodeIgniter\Tests;
 
+use Exception;
 use Inspector\CodeIgniter\Inspector;
 use Inspector\CodeIgniter\Tests\Support\TestCase;
 
@@ -10,7 +11,6 @@ use Inspector\CodeIgniter\Tests\Support\TestCase;
  */
 final class HelperTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -25,12 +25,13 @@ final class HelperTest extends TestCase
 
     public function testAddSegmentFromHelper()
     {
-        $result = inspector(static function() {
+        $result = inspector(static function () {
             $data = [1, 2, 3];
             $res  = array_map(
-              function ($el) {
-                return $el * 2;
-              }, $data);
+                static fn ($el) => $el * 2,
+                $data
+            );
+
             return $res;
         }, 'test-helper');
 
@@ -39,13 +40,13 @@ final class HelperTest extends TestCase
 
     public function testThrownExceptions()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('A test exception');
 
-        throw inspector(static function() {
+        throw inspector(static function () {
             $msg = 'A test exception';
-            $err = new \Exception($msg);
-            return $err;
+
+            return new Exception($msg);
         }, 'test-helper-exception', 'Test Helper Exception');
     }
 }

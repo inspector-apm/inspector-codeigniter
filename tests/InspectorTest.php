@@ -2,17 +2,16 @@
 
 namespace Inspector\CodeIgniter\Tests;
 
-use Inspector\CodeIgniter\Inspector;
-use Inspector\Models\Segment;
 use Config\Services;
+use Inspector\CodeIgniter\Inspector;
 use Inspector\CodeIgniter\Tests\Support\TestCase;
+use Inspector\Models\Segment;
 
 /**
  * @internal
  */
 final class InspectorTest extends TestCase
 {
-
     protected function simulateEventStart(): void
     {
         \CodeIgniter\Events\Events::trigger('post_controller_constructor');
@@ -29,7 +28,7 @@ final class InspectorTest extends TestCase
         $inspector = Inspector::getInstance($config);
         $result    = $inspector->hasTransaction();
 
-        $this->assertSame(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testSetSegmentIsCorrect()

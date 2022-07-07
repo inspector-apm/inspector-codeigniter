@@ -21,7 +21,8 @@
   "require-dev": {
     "codeigniter/coding-standard": "^1.1",
     "codeigniter4/codeigniter4": "^4.2",
-    "phpunit/phpunit": "^9.0"
+    "phpunit/phpunit": "^9.0",
+    "nexusphp/cs-config": "^3.4"
   },
   "autoload": {
     "psr-4": {

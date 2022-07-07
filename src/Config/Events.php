@@ -3,7 +3,6 @@
 namespace Inspector\CodeIgniter\Config;
 
 use CodeIgniter\Events\Events;
-use CodeIgniter\Exceptions\FrameworkException;
 
 /*
  * --------------------------------------------------------------------
@@ -22,16 +21,16 @@ use CodeIgniter\Exceptions\FrameworkException;
  *      Events::on('create', [$myInstance, 'myMethod']);
  */
 
-if(config('Inspector')->AutoInspect) {
-    Events::on('post_controller_constructor', static function() {
-        $router      = service('router');
-        $controller  = $router->controllerName();
-        $method      = $router->methodName();
-        $segment     = Services::inspector()->startSegment($controller, $method);
+if (config('Inspector')->AutoInspect) {
+    Events::on('post_controller_constructor', static function () {
+        $router     = service('router');
+        $controller = $router->controllerName();
+        $method     = $router->methodName();
+        $segment    = Services::inspector()->startSegment($controller, $method);
         Services::inspector()->setSegment($segment);
     });
 
-    Events::on('post_system', static function() {
+    Events::on('post_system', static function () {
         Services::inspector()->getSegment()->end();
     });
 }
