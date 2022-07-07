@@ -1,8 +1,11 @@
 composer.phar
 composer.lock
 composer-test.lock
-phpunit.xml
+phpunit*.xml
+phpunit
+*.cache
 vendor/
+build/
 build/artifacts/
 artifacts/
 docs/_build
