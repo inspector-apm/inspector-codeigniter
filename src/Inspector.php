@@ -13,14 +13,14 @@ use Inspector\Models\Segment;
  */
 class Inspector extends InspectorLibrary
 {
-    private Segment $Segment;
-
     /**
      * The latest version of the client library.
      *
      * @var string
      */
-    const VERSION = '0.1.1';
+    public const VERSION = '0.1.1';
+
+    private Segment $Segment;
 
     public static function getInstance(BaseConfig $config)
     {
@@ -34,7 +34,7 @@ class Inspector extends InspectorLibrary
             ->setOptions($config->Options ?? [])
             ->setMaxItems($config->MaxItems ?? 100);
 
-        $inspector     = new self($configuration);
+        $inspector = new self($configuration);
 
         // Only start a transation if AutoInspect is set to true
         if ($config->AutoInspect) {
