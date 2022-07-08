@@ -1,6 +1,9 @@
 # Inspector | Code Execution Monitoring tool
 
-Provides a wrapper for Inspector's PHP monitoring Library. inspector-apm/inspector-php
+Connect CodeIgniter applications to Inspector monitoring system.
+
+## Official maintainer
+> This repository is maintained by [Prysis](http://www.prysis.co.za/) - sales@prysis.co.za
 
 ## Quick Start
 
