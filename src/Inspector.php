@@ -15,11 +15,25 @@ class Inspector extends InspectorLibrary
 {
     private Segment $Segment;
 
+    /**
+     * The latest version of the client library.
+     *
+     * @var string
+     */
+    const VERSION = '0.1.1';
+
     public static function getInstance(BaseConfig $config)
     {
         $requestURI = $_SERVER['REQUEST_URI'] ?? '';
 
-        $configuration = new Configuration($config->IngestionKey);
+        $configuration = (new Configuration($config->IngestionKey))
+            ->setEnabled($config->Enable ?? true)
+            ->setUrl($config->URL ?? 'https://ingest.inspector.dev')
+            ->setVersion(self::VERSION)
+            ->setTransport($config->Transport ?? 'async')
+            ->setOptions($config->Options ?? [])
+            ->setMaxItems($config->MaxItems ?? 100);
+
         $inspector     = new self($configuration);
 
         // Only start a transation if AutoInspect is set to true

@@ -38,12 +38,51 @@ use CodeIgniter\Config\BaseConfig;
 
 class Inspector extends BaseConfig
 {
-    /* set to true if you want all your controller methods to be 'auto-inspected'
+    /**
+     * set to true if you want all your controller methods to be 'auto-inspected'
      * set to false to set your own inspection points - provides more flexibility
+     *
+     * @var bool
      */
     public $AutoInspect  = true;
-    /* your application ingestion key, you can find this on your inspector dashboard */
+    
+    /**
+     * application ingestion key, you can find this on your inspector dashboard
+     *
+     * @var string
+     */
     public $IngestionKey = 'YOUR_INGESTION_KEY';
+    
+    /**
+     * @var bool
+     */
+    public $Enable = true;
+    
+    /**
+     * Remote endpoint to send data.
+     *
+     * @var string
+     */
+    public $URL = 'https://ingest.inspector.dev';
+    
+    /**
+     * @var string
+     */
+    public $Transport = 'async';
+    
+    /**
+     * Transport options.
+     *
+     * @var array
+     */
+    public $Options = [];
+    
+    /**
+     * Max numbers of items to collect in a single session.
+     *
+     * @var int
+     */
+    public $MaxItems = 100;
 }
 ```
 
@@ -66,6 +105,7 @@ inspector functionality, and this is where the service comes in. Here we present
 check the inspector documentation for more methods and features.
 
 You can add a segment from anywhere in your code (assuming this is in your controller method getUsers):
+
 ```php
 /* gets JSON payload of $limit users */
 public function getUsers(int $limit)
@@ -87,7 +127,7 @@ public function validateUserAge(): bool
     if($this->UserAge < 13) {
       throw new \UserException\AgeNotAppropriate('Cannot register user, minimum age requirement not met.');
     }
-  } catch (\UserException\AgeNotAppropriate as $e) {
+  } catch (\UserException\AgeNotAppropriate $e) {
     $inspectorInstance->reportException($e);
     /* Your exception handling code... */
   }
@@ -118,7 +158,7 @@ $inspectorInstance->addSegment(function () {
   try {
     $asyncData = $this->getAsyncData('https://data.mysite.io');
     return $this->startDataSyncJob($asyncData);
-  } catch(\DataException\DataLoadException as $e) {
+  } catch(\DataException\DataLoadException $e) {
     $inspectorInstance->reportException($e);
   }
 }, 'data-load', 'Data Load Flow');
