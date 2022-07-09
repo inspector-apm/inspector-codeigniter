@@ -3,6 +3,7 @@
 Connect CodeIgniter applications to Inspector monitoring system.
 
 ## Official maintainer
+
 > This repository is maintained by [Prysis](http://www.prysis.co.za/) - sales@prysis.co.za
 
 ## Quick Start
@@ -12,16 +13,15 @@ Connect CodeIgniter applications to Inspector monitoring system.
 
 `Inspector CodeIgniter` provides a simple wrapper around the inspector PHP monitor Library that you can use for your
 CodeIgniter4 applications. Its made for ease of use and can be configured to 'auto inspect' your code with no extra code
-from you. Just install, configure and it will do all the work for you.
+from you.
 
-Its also very flexible allowing you to override the auto inspect, so you have more power over your inspection points. 
+It's also very flexible allowing you to override the auto inspect, so you have more power over your inspection points. 
 You can use it in your Controllers, Models, Events, Libraries, and custom classes. 
 Any code that has access to CI4's services can make use of the library.
 
 ## Installation
 
-Install easily via Composer to take advantage of CodeIgniter 4's autoloading capabilities
-and always be up-to-date:
+Install easily via Composer to take advantage of CodeIgniter4's autoloading:
 * `> composer require inspector-apm/inspector-codeigniter`
 
 Or, install manually by downloading the source files and adding the directory to
