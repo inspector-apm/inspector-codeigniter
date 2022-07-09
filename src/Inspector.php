@@ -13,14 +13,28 @@ use Inspector\Models\Segment;
  */
 class Inspector extends InspectorLibrary
 {
+    /**
+     * The latest version of the client library.
+     *
+     * @var string
+     */
+    public const VERSION = '0.1.1';
+
     private Segment $Segment;
 
     public static function getInstance(BaseConfig $config)
     {
         $requestURI = $_SERVER['REQUEST_URI'] ?? '';
 
-        $configuration = new Configuration($config->IngestionKey);
-        $inspector     = new self($configuration);
+        $configuration = (new Configuration($config->IngestionKey))
+            ->setEnabled($config->Enable ?? true)
+            ->setUrl($config->URL ?? 'https://ingest.inspector.dev')
+            ->setVersion(self::VERSION)
+            ->setTransport($config->Transport ?? 'async')
+            ->setOptions($config->Options ?? [])
+            ->setMaxItems($config->MaxItems ?? 100);
+
+        $inspector = new self($configuration);
 
         // Only start a transation if AutoInspect is set to true
         if ($config->AutoInspect) {
