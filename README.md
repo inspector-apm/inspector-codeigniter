@@ -30,7 +30,7 @@ Or, install manually by downloading the source files and adding the directory to
 ## Setup
 
 In order to start using the integration library, you will need to create a config class for it.
-`> ./spark make:config Inspector
+`> ./spark make:config Inspector`
 
 ```php
 <?php
