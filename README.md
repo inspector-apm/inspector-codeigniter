@@ -172,5 +172,14 @@ $inspectorInstance->reportException(new \Exception('Model Setup Error'));
 
 > Note: Due to the shorthand nature of the helper function it can only add a segment or return a service instance.
 
-## More Info
-For more info on inspector's monitoring library and the developer documentation, please visit [![Documentation](https://docs.inspector.dev)](https://docs.inspector.dev)
+## Official documentation
+
+**[Check out the official documentation](https://docs.inspector.dev/codeigniter)**
+
+## Contributing
+
+We encourage you to contribute to Inspector! Please check out the [Contribution Guidelines](CONTRIBUTING.md) about how to proceed. Join us!
+
+## LICENSE
+
+This package is licensed under the [MIT](LICENSE) license.
