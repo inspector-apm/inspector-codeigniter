@@ -3,7 +3,7 @@
 [![Total Downloads](https://poser.pugx.org/inspector-apm/inspector-codeigniter/downloads)](//packagist.org/packages/inspector-apm/inspector-codeigniter)
 [![Latest Stable Version](https://poser.pugx.org/inspector-apm/inspector-codeigniter/v/stable)](https://packagist.org/packages/inspector-apm/inspector-codeigniter)
 [![License](https://poser.pugx.org/inspector-apm/inspector-codeigniter/license)](//packagist.org/packages/inspector-apm/inspector-codeigniter)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 Connect CodeIgniter applications to Inspector monitoring system.
 
