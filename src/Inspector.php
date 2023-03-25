@@ -7,6 +7,7 @@ use Inspector\Configuration;
 use Inspector\Inspector as InspectorLibrary;
 
 use Inspector\Models\Segment;
+use Throwable;
 
 /**
  * Allows developers to use the inspector library in CI4
@@ -18,7 +19,7 @@ class Inspector extends InspectorLibrary
      *
      * @var string
      */
-    public const VERSION = '0.1.1';
+    public const VERSION = '0.2.1';
 
     private Segment $Segment;
 
@@ -42,9 +43,19 @@ class Inspector extends InspectorLibrary
             $path     = array_shift($pathInfo);
 
             $inspector->startTransaction($path);
+
+            if ($config->LogUnhandledExceptions) {
+                set_exception_handler([$inspector, 'recordUnhandledException']);
+                restore_exception_handler();
+            }
         }
 
         return $inspector;
+    }
+
+    public function recordUnhandledException(Throwable $exception)
+    {
+        $this->reportException($exception);
     }
 
     public function setSegment(Segment $segment)

@@ -48,6 +48,14 @@ class Inspector extends BaseConfig
      * @var bool
      */
     public $AutoInspect  = true;
+
+    /**
+     * set this option to true if you want your application to send unhandled exceptions
+     * to the inspector dashboard. Default is false for backward compatibility.
+     * 
+     * @var bool
+     */
+    public $LogUnhandledExceptions = false;
     
     /**
      * application ingestion key, you can find this on your inspector dashboard
