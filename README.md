@@ -1,5 +1,9 @@
 # Inspector | Code Execution Monitoring tool
 
+[![Latest Stable Version](https://poser.pugx.org/inspector-apm/inspector-codeigniter/v/stable)](https://packagist.org/packages/inspector-apm/inspector-codeigniter)
+[![License](https://poser.pugx.org/inspector-apm/inspector-codeigniter/license)](//packagist.org/packages/inspector-apm/inspector-codeigniter)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
+
 Connect CodeIgniter applications to Inspector monitoring system.
 
 ## Official maintainer
@@ -30,7 +34,7 @@ Or, install manually by downloading the source files and adding the directory to
 ## Setup
 
 In order to start using the integration library, you will need to create a config class for it.
-`> ./spark make:config Inspector
+`> ./spark make:config Inspector`
 
 ```php
 <?php
@@ -180,5 +184,14 @@ $inspectorInstance->reportException(new \Exception('Model Setup Error'));
 
 > Note: Due to the shorthand nature of the helper function it can only add a segment or return a service instance.
 
-## More Info
-For more info on inspector's monitoring library and the developer documentation, please visit [![Documentation](https://docs.inspector.dev)](https://docs.inspector.dev)
+## Official documentation
+
+**[Check out the official documentation](https://docs.inspector.dev/codeigniter)**
+
+## Contributing
+
+We encourage you to contribute to Inspector! Please check out the [Contribution Guidelines](CONTRIBUTING.md) about how to proceed. Join us!
+
+## LICENSE
+
+This package is licensed under the [MIT](LICENSE) license.
