@@ -2,6 +2,7 @@
 
 namespace Inspector\CodeIgniter\Tests;
 
+use CodeIgniter\Events\Events;
 use Config\Services;
 use Inspector\CodeIgniter\Inspector;
 use Inspector\CodeIgniter\Tests\Support\TestCase;
@@ -14,12 +15,12 @@ final class InspectorTest extends TestCase
 {
     protected function simulateEventStart(): void
     {
-        \CodeIgniter\Events\Events::trigger('post_controller_constructor');
+        Events::trigger('post_controller_constructor');
     }
 
     protected function simulateEventEnd(): void
     {
-        \CodeIgniter\Events\Events::trigger('post_system');
+        Events::trigger('post_system');
     }
 
     public function testAutoInspectStartsTransaction()
