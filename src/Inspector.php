@@ -5,7 +5,6 @@ namespace Inspector\CodeIgniter;
 use CodeIgniter\Config\BaseConfig;
 use Inspector\Configuration;
 use Inspector\Inspector as InspectorLibrary;
-
 use Inspector\Models\Segment;
 use Throwable;
 
@@ -19,9 +18,10 @@ class Inspector extends InspectorLibrary
      *
      * @var string
      */
-    public const VERSION = '0.2.1';
+    public const VERSION = '0.2.2';
 
     private Segment $Segment;
+    private array $PreviousHandlers = [];
 
     public static function getInstance(BaseConfig $config)
     {
@@ -43,19 +43,37 @@ class Inspector extends InspectorLibrary
             $path     = array_shift($pathInfo);
 
             $inspector->startTransaction($path);
-
-            if ($config->LogUnhandledExceptions) {
-                set_exception_handler([$inspector, 'recordUnhandledException']);
-                restore_exception_handler();
-            }
         }
 
         return $inspector;
     }
 
+    public function initialize()
+    {
+        $inspectorException = function (Throwable $ex) {
+            $this->recordUnhandledException($ex);
+        };
+
+        if ($currentHandler = set_exception_handler($inspectorException)) {
+            if (is_array($currentHandler) && $currentHandler[0] instanceof \CodeIgniter\Debug\Exceptions) {
+                $this->PreviousHandlers[] = $currentHandler;
+            } else {
+                restore_exception_handler();
+            }
+        }
+    }
+
     public function recordUnhandledException(Throwable $exception)
     {
         $this->reportException($exception);
+
+        foreach ($this->PreviousHandlers as $handler) {
+            if (count($handler) >= 2) {
+                $handler[0]->{$handler[1]}($exception);
+            } else {
+                $handler($exception);
+            }
+        }
     }
 
     public function setSegment(Segment $segment)

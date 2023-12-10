@@ -34,3 +34,9 @@ if (config('Inspector')->AutoInspect) {
         Services::inspector()->getSegment()->end();
     });
 }
+
+if (config('Inspector')->LogUnhandledExceptions) {
+    Events::on('pre_system', static function () {
+        Services::inspector()->initialize();
+    });
+}
