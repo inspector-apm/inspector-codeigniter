@@ -3,6 +3,8 @@
 namespace Inspector\CodeIgniter\Config;
 
 use CodeIgniter\Events\Events;
+use Inspector\Exceptions\InspectorException;
+use Throwable;
 
 /*
  * --------------------------------------------------------------------
@@ -35,6 +37,31 @@ if (config('Inspector')->AutoInspect) {
         if ($inspector->hasSegment()) {
             $inspector->getSegment()->end();
         }
+    });
+}
+
+if (config('Inspector')->Queries) {
+    Events::on('DBQuery', static function ($query) {
+        $inspector  = Services::inspector();
+        $segment    = $inspector->startSegment('query', 'Running Queries');
+        $upperBound = $query->getDuration() * 1000; // upper bound for the query in milliseconds
+        // report all queries that take longer than a second
+        if ($upperBound >= 1000) {
+            try {
+                throw new InspectorException("Query Took: {$upperBound} Input: " . $query->getOriginalQuery() . ' Output: ' . $query->getQuery());
+            } catch (Throwable $th) {
+                $inspector->reportException($th);
+            }
+        }
+        // report queries with errors
+        if ($query->hasError()) {
+            try {
+                throw new InspectorException('Query Error: ' . $query->getErrorCode() . ' Message: ' . $query->getErrorMessage());
+            } catch (Throwable $th) {
+                $inspector->reportException($th);
+            }
+        }
+        $segment->end();
     });
 }
 
