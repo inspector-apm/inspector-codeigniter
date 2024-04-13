@@ -40,7 +40,7 @@ if (config('Inspector')->AutoInspect) {
     });
 }
 
-if (config('Inspector')->Queries) {
+if (config('Inspector')->LogQueries) {
     Events::on('DBQuery', static function ($query) {
         $inspector  = Services::inspector();
         $segment    = $inspector->startSegment('query', 'Running Queries');
