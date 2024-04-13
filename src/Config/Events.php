@@ -31,7 +31,10 @@ if (config('Inspector')->AutoInspect) {
     });
 
     Events::on('post_system', static function () {
-        Services::inspector()->getSegment()->end();
+        $inspector = Services::inspector();
+        if ($inspector->hasSegment()) {
+            $inspector->getSegment()->end();
+        }
     });
 }
 
