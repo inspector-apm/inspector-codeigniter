@@ -60,6 +60,14 @@ class Inspector extends BaseConfig
      * @var bool
      */
     public $LogUnhandledExceptions = false;
+
+    /**
+     * set this option to true if you want your application to send long running queries
+     * and query errors to the inspector dashboard. Default is false for backward compatibility.
+     * 
+     * @var bool
+     */
+    public $LogQueries = false;
     
     /**
      * application ingestion key, you can find this on your inspector dashboard

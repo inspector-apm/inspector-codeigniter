@@ -4,6 +4,7 @@ namespace Inspector\CodeIgniter;
 
 use CodeIgniter\Config\BaseConfig;
 use Inspector\Configuration;
+use Inspector\Exceptions\InspectorException;
 use Inspector\Inspector as InspectorLibrary;
 use Inspector\Models\Segment;
 use Throwable;
@@ -18,12 +19,13 @@ class Inspector extends InspectorLibrary
      *
      * @var string
      */
-    public const VERSION = '0.2.2';
+    public const VERSION = '0.3.3';
 
     private Segment $Segment;
-    private array $PreviousHandlers = [];
+    private array $ExceptionHandlers = [];
+    private array $ErrorHandlers     = [];
 
-    public static function getInstance(BaseConfig $config)
+    public static function getInstance(BaseConfig $config): Inspector
     {
         $requestURI = $_SERVER['REQUEST_URI'] ?? '';
 
@@ -48,27 +50,57 @@ class Inspector extends InspectorLibrary
         return $inspector;
     }
 
-    public function initialize()
+    public function initialize(): void
     {
         $inspectorException = function (Throwable $ex) {
             $this->recordUnhandledException($ex);
         };
 
         if ($currentHandler = set_exception_handler($inspectorException)) {
-            if (is_array($currentHandler) && $currentHandler[0] instanceof \CodeIgniter\Debug\Exceptions) {
-                $this->PreviousHandlers[] = $currentHandler;
+            if (null !== $currentHandler) {
+                $this->ExceptionHandlers[] = $currentHandler;
             } else {
                 restore_exception_handler();
             }
         }
+
+        $inspectorError = function ($num, $str, $file, $line) {
+            $this->recordUnhandledError($num, $str, $file, $line);
+        };
+
+        if ($currentHandler = set_error_handler($inspectorError)) {
+            if (null !== $currentHandler) {
+                $this->ErrorHandlers[] = $currentHandler;
+            } else {
+                restore_error_handler();
+            }
+        }
     }
 
-    public function recordUnhandledException(Throwable $exception)
+    public function recordUnhandledError($num, $str, $file, $line): void
+    {
+        try {
+            // Throw a custom inspector codeigniter error so we can remort on the error
+            throw new InspectorException("Uncaught Error: {$num}.\n Line: {$line}\n Error: {$str}\n In File: {$file}\n");
+        } catch (Throwable $th) {
+            $this->reportException($th);
+        }
+
+        foreach ($this->ErrorHandlers as $handler) {
+            if (is_array($handler) && count($handler) >= 2) {
+                $handler[0]->{$handler[1]}($num, $str, $file, $line);
+            } else {
+                $handler($num, $str, $file, $line);
+            }
+        }
+    }
+
+    public function recordUnhandledException(Throwable $exception): void
     {
         $this->reportException($exception);
 
-        foreach ($this->PreviousHandlers as $handler) {
-            if (count($handler) >= 2) {
+        foreach ($this->ExceptionHandlers as $handler) {
+            if (is_array($handler) && count($handler) >= 2) {
                 $handler[0]->{$handler[1]}($exception);
             } else {
                 $handler($exception);
@@ -76,12 +108,17 @@ class Inspector extends InspectorLibrary
         }
     }
 
-    public function setSegment(Segment $segment)
+    public function hasSegment(): bool
+    {
+        return isset($this->Segment);
+    }
+
+    public function setSegment(Segment $segment): void
     {
         $this->Segment = $segment;
     }
 
-    public function getSegment()
+    public function getSegment(): Segment
     {
         return $this->Segment;
     }
