@@ -19,7 +19,7 @@ class Inspector extends InspectorLibrary
      *
      * @var string
      */
-    public const VERSION = '0.3.3';
+    public const VERSION = '0.3.4';
 
     private Segment $Segment;
     private array $ExceptionHandlers = [];
@@ -44,7 +44,7 @@ class Inspector extends InspectorLibrary
             $pathInfo = explode('?', $requestURI);
             $path     = array_shift($pathInfo);
 
-            $inspector->startTransaction($path);
+            $inspector->startTransaction($path)->markAsRequest();
         }
 
         return $inspector;
