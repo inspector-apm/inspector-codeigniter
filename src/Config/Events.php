@@ -23,7 +23,11 @@ use Throwable;
  *      Events::on('create', [$myInstance, 'myMethod']);
  */
 
-if (config('Inspector')->AutoInspect) {
+$inspectorConfig = config('Inspector');
+
+if(!isset($inspectorConfig)) return;
+
+if ($inspectorConfig->AutoInspect) {
     Events::on('post_controller_constructor', static function () {
         $router     = service('router');
         $controller = $router->controllerName();
@@ -40,7 +44,7 @@ if (config('Inspector')->AutoInspect) {
     });
 }
 
-if (config('Inspector')->LogQueries) {
+if ($inspectorConfig->LogQueries) {
     Events::on('DBQuery', static function ($query) {
         $inspector  = Services::inspector();
         $segment    = $inspector->startSegment('query', 'Running Queries');
@@ -65,7 +69,7 @@ if (config('Inspector')->LogQueries) {
     });
 }
 
-if (config('Inspector')->LogUnhandledExceptions) {
+if ($inspectorConfig->LogUnhandledExceptions) {
     Events::on('pre_system', static function () {
         Services::inspector()->initialize();
     });
