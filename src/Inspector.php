@@ -19,7 +19,7 @@ class Inspector extends InspectorLibrary
      *
      * @var string
      */
-    public const VERSION = '0.3.5';
+    public const VERSION = '0.4.5';
 
     private Segment $Segment;
     private array $ExceptionHandlers = [];
