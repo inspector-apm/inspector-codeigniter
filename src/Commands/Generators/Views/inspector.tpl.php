@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class {class} extends BaseConfig
 {
-  /**
+    /**
      * set to true if you want all your controller methods to be 'auto-inspected'
      * set to false to set your own inspection points - provides more flexibility
      *
@@ -17,7 +17,7 @@ class {class} extends BaseConfig
     /**
      * set this option to true if you want your application to send unhandled exceptions
      * to the inspector dashboard. Default is false for backward compatibility.
-     * 
+     *
      * @var bool
      */
     public $LogUnhandledExceptions = false;
@@ -25,7 +25,7 @@ class {class} extends BaseConfig
     /**
      * set this option to true if you want your application to send long running queries
      * and query errors to the inspector dashboard. Default is false for backward compatibility.
-     * 
+     *
      * @var bool
      */
     public $LogQueries = false;
@@ -68,4 +68,3 @@ class {class} extends BaseConfig
      */
     public $MaxItems = 100;
 }
-
