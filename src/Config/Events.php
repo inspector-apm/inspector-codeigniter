@@ -25,7 +25,9 @@ use Throwable;
 
 $inspectorConfig = config('Inspector');
 
-if(!isset($inspectorConfig)) return;
+if(!isset($inspectorConfig)) {
+    return;
+}
 
 if ($inspectorConfig->AutoInspect) {
     Events::on('post_controller_constructor', static function () {
