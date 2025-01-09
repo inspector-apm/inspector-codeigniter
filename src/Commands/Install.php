@@ -16,7 +16,7 @@ class Install extends BaseCommand
     public function run(array $params)
     {
         // Copy the config file
-        $source = __DIR__ . '/../Config/Inspector.php';
+        $source = __DIR__ . '/Inspector.php.stub';
         $destination = APPPATH . 'Config/Inspector.php';
 
         CLI::write("Publishing the configuration file to {$destination}");
