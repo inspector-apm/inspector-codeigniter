@@ -39,7 +39,7 @@ class Inspector extends BaseConfig
      *
      * @var bool
      */
-    public $DBQuery = false;
+    public $DBQuery = true;
 
     /**
      * The strategy to send data.
