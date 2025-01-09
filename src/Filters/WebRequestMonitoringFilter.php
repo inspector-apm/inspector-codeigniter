@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class WebRequestMonitoringFilter extends FilterInterface
+class WebRequestMonitoringFilter implements FilterInterface
 {
     public function __construct()
     {
@@ -26,7 +26,7 @@ class WebRequestMonitoringFilter extends FilterInterface
         $matchedRoute = service('router')->getMatchedRoute();
 
         inspector()
-            ->startTransaction($matchedRoute[0] . ' ' . $matchedRoute[1])
+            ->startTransaction($request->getMethod() . ' ' . $matchedRoute[0])
             ->addContext('Request Body', $request->getBody())
             ->markAsRequest();
 

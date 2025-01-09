@@ -39,12 +39,5 @@
             "Inspector\\CodeIgniter\\Tests\\": "tests",
             "Inspector\\CodeIgniter\\Tests\\Support\\": "tests/_support"
         }
-    },
-    "extra": {
-        "codeigniter": {
-            "providers": [
-                "Inspector\\CodeIgniter\\InspectorServiceProvider"
-            ]
-        }
     }
 }
