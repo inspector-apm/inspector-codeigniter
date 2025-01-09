@@ -30,13 +30,6 @@ class Inspector extends BaseConfig
     ];
 
     /**
-     * Current version of the package.
-     *
-     * @var string
-     */
-    public $version = '0.5.4';
-
-    /**
      * Remote endpoint to send data.
      *
      * @var string

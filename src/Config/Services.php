@@ -9,6 +9,11 @@ use Inspector\Inspector;
 class Services extends BaseService
 {
     /**
+     * Current version of the package.
+     */
+    const VERSION = '0.5.4';
+
+    /**
      * Returns the Inspector manager class.
      */
     public static function inspector(bool $getShared = true): Inspector
@@ -22,7 +27,7 @@ class Services extends BaseService
         $configuration = (new Configuration($config->ingestionKey))
             ->setEnabled($config->enabled)
             ->setUrl($config->url)
-            ->setVersion($config->version)
+            ->setVersion(self::VERSION)
             ->setTransport($config->transport)
             ->setOptions($config->options)
             ->setMaxItems($config->maxItems);
