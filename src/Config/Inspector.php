@@ -21,6 +21,15 @@ class Inspector extends BaseConfig
     public $enable = true;
 
     /**
+     * List the path you don't want to monitor (Support for wildcard "*").
+     *
+     * @var array
+     */
+    public $ignoreRoutes = [
+        // 'admin*'
+    ];
+
+    /**
      * Current version of the package.
      *
      * @var string
