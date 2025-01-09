@@ -63,6 +63,27 @@ $json = inspector()->addSegment(function () {
 inspector()->reportException(new \Exception("Whoops there's an error here."));
 ```
 
+We highly recommend adding the helper in the Config/Autoload.php configuration class to make it available 
+globally into the application:
+
+```php
+class Autoload extends AutoloadConfig
+{
+    /**
+     * -------------------------------------------------------------------
+     * Helpers
+     * -------------------------------------------------------------------
+     * Prototype:
+     *   $helpers = [
+     *       'form',
+     *   ];
+     *
+     * @var list<string>
+     */
+    public $helpers = ['inspector'];
+}
+```
+
 
 ## Official documentation
 
