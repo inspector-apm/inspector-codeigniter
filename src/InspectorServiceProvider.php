@@ -15,7 +15,5 @@ class InspectorServiceProvider extends BaseService
         $filters->aliases['inspector'] = WebRequestMonitoringFilter::class;
         $filters->globals['before'][] = 'inspector';
         $filters->globals['after'][] = 'inspector';
-
-        dd($filters);
     }
 }
