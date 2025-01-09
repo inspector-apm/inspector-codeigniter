@@ -4,7 +4,8 @@ namespace Inspector\CodeIgniter\Config;
 
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Config\BaseService;
-use Inspector\CodeIgniter\Inspector;
+use Inspector\Configuration;
+use Inspector\Inspector;
 
 /**
  * Services Configuration file.
@@ -24,12 +25,22 @@ class Services extends BaseService
     /**
      * Returns the Inspector manager class.
      */
-    public static function inspector(?BaseConfig $config = null, bool $getShared = true): Inspector
+    public static function inspector(bool $getShared = true): Inspector
     {
         if ($getShared) {
-            return static::getSharedInstance('inspector', $config);
+            return static::getSharedInstance('inspector');
         }
 
-        return Inspector::getInstance($config ?? config('Inspector'));
+        $config = config('Inspector');
+
+        $configuration = (new Configuration($config->ingestionKey))
+            ->setEnabled($config->enabled)
+            ->setUrl($config->url)
+            ->setVersion($config->version)
+            ->setTransport($config->transport)
+            ->setOptions($config->options)
+            ->setMaxItems($config->maxItems);
+
+        return new Inspector($configuration);
     }
 }

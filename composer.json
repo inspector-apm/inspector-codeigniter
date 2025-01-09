@@ -1,60 +1,71 @@
 {
-  "name": "inspector-apm/inspector-codeigniter",
-  "description": "Simple Code Execution Monitoring for CodeIgniter applications.",
-  "keywords": ["monitoring", "php", "inspector", "codeigniter4"],
-  "license": "MIT",
-  "authors": [
-    {
-      "email": "benedict@prysis.co.za",
-      "name": "Benedict Tshaba"
-    }
-  ],
-  "config": {
-    "preferred-install": "dist"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "require": {
-    "php": ">=7.4",
-    "inspector-apm/inspector-php": "^3.7"
-  },
-  "require-dev": {
-    "codeigniter/coding-standard": "^1.1",
-    "codeigniter4/codeigniter4": "^4.2",
-    "phpunit/phpunit": "^9.0",
-    "nexusphp/cs-config": "^3.4"
-  },
-  "autoload": {
-    "psr-4": {
-      "Inspector\\CodeIgniter\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Inspector\\CodeIgniter\\Tests\\": "tests",
-      "Inspector\\CodeIgniter\\Tests\\Support\\": "tests/_support"
-    }
-  },
-  "scripts": {
-    "post-update-cmd": [
-      "bash -c \"if [ -f admin/setup.sh ]; then bash admin/setup.sh; fi\""
+    "name": "inspector-apm/inspector-codeigniter",
+    "description": "Simple Code Execution Monitoring for CodeIgniter applications.",
+    "keywords": [
+        "monitoring",
+        "php",
+        "inspector",
+        "codeigniter4"
     ],
-    "ci": [
-      "Composer\\Config::disableProcessTimeout",
-      "@deduplicate",
-      "@test",
-      "@style"
+    "license": "MIT",
+    "authors": [
+        {
+            "email": "benedict@prysis.co.za",
+            "name": "Benedict Tshaba"
+        }
     ],
-    "deduplicate": "phpcpd app/ src/",
-    "style": "php-cs-fixer fix --verbose --ansi --using-cache=no",
-    "test": "phpunit"
-  },
-  "extra": {
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/codeigniter4/CodeIgniter4"
-    }
-  ]
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.4",
+        "codeigniter4/framework": "^4.0",
+        "inspector-apm/inspector-php": "^3.7"
+    },
+    "require-dev": {
+        "codeigniter/coding-standard": "^1.1",
+        "codeigniter4/codeigniter4": "^4.2",
+        "phpunit/phpunit": "^9.0",
+        "nexusphp/cs-config": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inspector\\CodeIgniter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Inspector\\CodeIgniter\\Tests\\": "tests",
+            "Inspector\\CodeIgniter\\Tests\\Support\\": "tests/_support"
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "bash -c \"if [ -f admin/setup.sh ]; then bash admin/setup.sh; fi\""
+        ],
+        "ci": [
+            "Composer\\Config::disableProcessTimeout",
+            "@deduplicate",
+            "@test",
+            "@style"
+        ],
+        "deduplicate": "phpcpd app/ src/",
+        "style": "php-cs-fixer fix --verbose --ansi --using-cache=no",
+        "test": "phpunit"
+    },
+    "extra": {
+        "codeigniter": {
+            "providers": [
+                "Inspector\\CodeIgniter\\InspectorServiceProvider"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/codeigniter4/CodeIgniter4"
+        }
+    ]
 }

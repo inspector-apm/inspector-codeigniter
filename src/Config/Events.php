@@ -2,9 +2,11 @@
 
 namespace Inspector\CodeIgniter\Config;
 
+use CodeIgniter\Database\Query;
 use CodeIgniter\Events\Events;
-use Inspector\Exceptions\InspectorException;
 use Throwable;
+
+helper('inspector');
 
 /*
  * --------------------------------------------------------------------
@@ -23,50 +25,31 @@ use Throwable;
  *      Events::on('create', [$myInstance, 'myMethod']);
  */
 
-if (config('Inspector')->AutoInspect) {
-    Events::on('post_controller_constructor', static function () {
-        $router     = service('router');
-        $controller = $router->controllerName();
-        $method     = $router->methodName();
-        $segment    = Services::inspector()->startSegment($controller, $method);
-        Services::inspector()->setSegment($segment);
-    });
+Events::on('post_controller_constructor', static function () {
+});
 
-    Events::on('post_system', static function () {
-        $inspector = Services::inspector();
-        if ($inspector->hasSegment()) {
-            $inspector->getSegment()->end();
+Events::on('post_system', static function () {
+});
+
+/**
+ * Console Command
+ */
+Events::on('pre_command', static function () {
+});
+
+Events::on('post_command', static function () {
+});
+
+/**
+ * Database Query
+ */
+if (config('Inspector')->DBQuery) {
+    Events::on('DBQuery', static function (Query $query) {
+        if (inspector()->canAddSegments()) {
+            inspector()->startSegment('query', $query->getOriginalQuery())
+                ->addContext('Db', ['sql' => $query->getQuery()])
+                ->end($query->getDuration() * 1000);
         }
     });
 }
 
-if (config('Inspector')->LogQueries) {
-    Events::on('DBQuery', static function ($query) {
-        $inspector  = Services::inspector();
-        $segment    = $inspector->startSegment('query', $query->getOriginalQuery());
-        $upperBound = $query->getDuration() * 1000; // upper bound for the query in milliseconds
-        // report all queries that take longer than a second
-        if ($upperBound >= 1000) {
-            try {
-                throw new InspectorException("Query Took: {$upperBound} Input: " . $query->getOriginalQuery() . ' Output: ' . $query->getQuery());
-            } catch (Throwable $th) {
-                $inspector->reportException($th);
-            }
-        }
-        // report queries with errors
-        if ($query->hasError()) {
-            try {
-                throw new InspectorException('Query Error: ' . $query->getErrorCode() . ' Message: ' . $query->getErrorMessage());
-            } catch (Throwable $th) {
-                $inspector->reportException($th);
-            }
-        }
-        $segment->end();
-    });
-}
-
-if (config('Inspector')->LogUnhandledExceptions) {
-    Events::on('pre_system', static function () {
-        Services::inspector()->initialize();
-    });
-}
