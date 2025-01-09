@@ -3,6 +3,7 @@
 namespace Inspector\CodeIgniter\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
+use CodeIgniter\CLI\CLI;
 
 class PublishConfig extends BaseCommand
 {
@@ -18,8 +19,12 @@ class PublishConfig extends BaseCommand
         $source = __DIR__ . '/../Config/Inspector.php';
         $destination = APPPATH . 'Config/Inspector.php';
 
+        CLI::write("Publishing the configuration file to {$destination}");
+
         if (!file_exists($destination)) {
             copy($source, $destination);
         }
+
+        CLI::write("Done!", "green");
     }
 }
