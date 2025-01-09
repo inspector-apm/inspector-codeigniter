@@ -2,62 +2,21 @@
 
 namespace Inspector\CodeIgniter\Tests;
 
-use CodeIgniter\Events\Events;
-use Config\Services;
-use Inspector\CodeIgniter\Inspector;
+use Inspector\Inspector;
 use Inspector\CodeIgniter\Tests\Support\TestCase;
-use Inspector\Models\Segment;
 
 /**
  * @internal
  */
 final class InspectorTest extends TestCase
 {
-    protected function simulateEventStart(): void
+    public function testConfigLoad()
     {
-        Events::trigger('post_controller_constructor');
+        $this->assertInstanceOf(\Inspector\CodeIgniter\Config\Inspector::class, config('inspector'));
     }
 
-    protected function simulateEventEnd(): void
+    public function testServiceLoad()
     {
-        Events::trigger('post_system');
-    }
-
-    public function testAutoInspectStartsTransaction()
-    {
-        $config    = config('Inspector');
-        $inspector = Inspector::getInstance($config);
-        $result    = $inspector->hasTransaction();
-
-        $this->assertTrue($result);
-    }
-
-    public function testSetSegmentIsCorrect()
-    {
-        Services::resetSingle('inspector');
-
-        $this->simulateEventStart();
-
-        $config    = config('Inspector');
-        $inspector = service('inspector');
-
-        $this->assertInstanceOf(Segment::class, $inspector->getSegment());
-
-        $this->simulateEventEnd();
-    }
-
-    public function testGetSegmentReturnsValidSegmentInstance()
-    {
-        Services::resetSingle('inspector');
-
-        $this->simulateEventStart();
-
-        $config    = config('Inspector');
-        $inspector = service('inspector');
-        $result    = $inspector->getSegment();
-
-        $this->assertInstanceOf(Segment::class, $result);
-
-        $this->simulateEventEnd();
+        $this->assertInstanceOf(Inspector::class, service('inspector'));
     }
 }

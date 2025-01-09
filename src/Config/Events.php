@@ -24,10 +24,30 @@ helper('inspector');
  *      Events::on('create', [$myInstance, 'myMethod']);
  */
 
-Events::on('post_controller_constructor', static function () {
+Events::on('pre_system', static function () {
+    /*$exceptions = service('exceptions');
+
+    // Store the original exception handler
+    $originalHandler = set_exception_handler(function (\Throwable $e) use ($exceptions) {
+        // Your custom handling here
+        inspector()->reportException($e);
+
+        // Call the original handler
+        if (is_callable($exceptions->exceptionHandler)) {
+            call_user_func($exceptions->exceptionHandler, $e);
+        }
+    });
+
+    // Store the original handler
+    if ($originalHandler) {
+        $exceptions->exceptionHandler = $originalHandler;
+    }*/
 });
 
 Events::on('post_system', static function () {
+});
+
+Events::on('post_controller_constructor', static function () {
 });
 
 /**

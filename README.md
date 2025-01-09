@@ -47,8 +47,7 @@ php spark inspector:test
 
 ## Helper
 
-The helper provides a shortcut to the inspector instance. It must first be loaded using the `helper()` method
-or telling your BaseController to always load it.
+The helper provides a shortcut to the inspector instance. It must first be loaded using the `helper()` method:
 
 ```php
 // Load the helper function
@@ -63,7 +62,7 @@ $json = inspector()->addSegment(function () {
 inspector()->reportException(new \Exception("Whoops there's an error here."));
 ```
 
-We highly recommend adding the helper in the Config/Autoload.php configuration class to make it available 
+**We highly recommend** adding the helper in the `Config/Autoload.php` configuration class to make it available 
 globally into the application:
 
 ```php
