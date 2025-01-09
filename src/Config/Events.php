@@ -25,11 +25,11 @@ helper('inspector');
  */
 
 Events::on('pre_system', static function () {
-    /*$exceptions = service('exceptions');
+    $exceptions = service('exceptions');
 
     // Store the original exception handler
     $originalHandler = set_exception_handler(function (\Throwable $e) use ($exceptions) {
-        // Your custom handling here
+        // Report to Inspector
         inspector()->reportException($e);
 
         // Call the original handler
@@ -41,7 +41,7 @@ Events::on('pre_system', static function () {
     // Store the original handler
     if ($originalHandler) {
         $exceptions->exceptionHandler = $originalHandler;
-    }*/
+    }
 });
 
 Events::on('post_system', static function () {

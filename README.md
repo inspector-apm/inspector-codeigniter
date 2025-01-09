@@ -4,7 +4,7 @@
 [![License](https://poser.pugx.org/inspector-apm/inspector-codeigniter/license)](//packagist.org/packages/inspector-apm/inspector-codeigniter)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
-Connect CodeIgniter 4 applications to the Inspector monitoring system.
+Connect CodeIgniter 4 applications to the Inspector monitoring dashboard.
 
 
 ## Official maintainer
