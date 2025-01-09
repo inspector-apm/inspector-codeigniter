@@ -25,7 +25,7 @@ class Inspector extends BaseConfig
      *
      * @var string
      */
-    public $version = '0.5.0';
+    public $version = '0.5.1';
 
     /**
      * Remote endpoint to send data.
