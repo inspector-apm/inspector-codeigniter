@@ -20,6 +20,7 @@ class WebRequestMonitoringFilter implements FilterInterface
 
     public function __construct()
     {
+        $this->config = config('Inspector');
         helper('inspector');
     }
 

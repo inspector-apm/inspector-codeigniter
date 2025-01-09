@@ -11,7 +11,7 @@ class Services extends BaseService
     /**
      * Current version of the package.
      */
-    public const VERSION = '0.5.8';
+    public const VERSION = '0.5.9';
 
     /**
      * Returns the Inspector manager class.
