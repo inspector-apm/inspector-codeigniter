@@ -1,6 +1,6 @@
 <?php
 
-namespace Inspector\CodeIgniter\Config;
+namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
