@@ -44,7 +44,7 @@ inspector.ingestionKey = '974yn8c34ync8xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 ## Verify And Deploy
 
 Run the command below to check if your system is properly configured. If all checks are green you can deploy 
-in your production environment. 
+the update in your production environment. 
 
 ```
 php spark inspector:test
