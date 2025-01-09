@@ -20,6 +20,12 @@ Install the latest version using the composer command below:
 composer require inspector-apm/inspector-codeigniter
 ```
 
+Run the install command to publish the `Inspector.php` configuration file in your application `app/Config` directory:
+
+```
+php spark inspector:install
+```
+
 
 ## Configure the Ingestion Key
 
