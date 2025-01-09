@@ -18,7 +18,7 @@ class Inspector extends BaseConfig
      *
      * @var bool
      */
-    public $enable = true;
+    public $enabled = true;
 
     /**
      * List the path you don't want to monitor (Support for wildcard "*").
