@@ -43,7 +43,7 @@ if (config('Inspector')->AutoInspect) {
 if (config('Inspector')->LogQueries) {
     Events::on('DBQuery', static function ($query) {
         $inspector  = Services::inspector();
-        $segment    = $inspector->startSegment('query', 'Running Queries');
+        $segment    = $inspector->startSegment('query', $query->getOriginalQuery());
         $upperBound = $query->getDuration() * 1000; // upper bound for the query in milliseconds
         // report all queries that take longer than a second
         if ($upperBound >= 1000) {
