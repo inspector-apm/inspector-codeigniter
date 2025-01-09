@@ -4,7 +4,6 @@ namespace Inspector\CodeIgniter\Config;
 
 use CodeIgniter\Database\Query;
 use CodeIgniter\Events\Events;
-use Throwable;
 
 helper('inspector');
 
