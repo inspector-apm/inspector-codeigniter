@@ -9,7 +9,7 @@ class Install extends BaseCommand
 {
     protected $group = 'Inspector';
 
-    protected $name = 'inspector:publish';
+    protected $name = 'inspector:install';
 
     protected $description = 'Installs Inspector configuration files.';
 
