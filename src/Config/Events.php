@@ -64,7 +64,7 @@ Events::on('post_command', static function () {
 /**
  * Database Query
  */
-if (config('Inspector')->DBQuery) {
+if (config('Inspector')->DBQuery??false) {
     Events::on('DBQuery', static function (Query $query) {
         if (inspector()->canAddSegments()) {
             inspector()->startSegment('query', $query->getOriginalQuery())
