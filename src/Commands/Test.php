@@ -5,15 +5,17 @@ namespace Inspector\CodeIgniter\Commands;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\CLI\Commands;
-use Inspector\Models\Segment;
+use Exception;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
-class Test extends BaseCommand
+/**
+ * @internal
+ */
+final class Test extends BaseCommand
 {
-    protected $group = 'Inspector';
-
-    protected $name = 'inspector:test';
-
+    protected $group       = 'Inspector';
+    protected $name        = 'inspector:test';
     protected $description = 'Test the inspector integration.';
 
     public function __construct(LoggerInterface $logger, Commands $commands)
@@ -24,31 +26,27 @@ class Test extends BaseCommand
 
     public function run(array $params)
     {
-        if (!inspector()->canAddSegments()) {
-            CLI::error('Inspector is not enabled.');
-            return;
-        }
-
         $config = config('Inspector');
 
-        inspector()->addSegment(function (Segment $segment) use ($config) {
+        inspector()->addSegment(static function () {
             usleep(10 * 1000);
 
             try {
-                \proc_open("", [], $pipes);
-            } catch (\Throwable $exception) {
-                CLI::error("❌ proc_open function disabled.");
+                \proc_open('', [], $pipes);
+            } catch (Throwable $exception) {
+                CLI::error('❌ proc_open function disabled.');
+
                 return;
             }
         }, 'check', 'Check system requirements');
 
-        inspector()->addSegment(function (Segment $segment) use ($config) {
+        inspector()->addSegment(static function () use ($config) {
             $config->ingestionKey
                 ? CLI::write('✅ Ingestion Key has been configured.', 'green')
                 : CLI::error('❌ Ingestion key is empty.');
         }, 'check', 'Check Ingestion Key');
 
-        inspector()->addSegment(function (Segment $segment) {
+        inspector()->addSegment(static function () {
             \usleep(10 * 1000);
 
             function_exists('curl_version')
@@ -56,11 +54,12 @@ class Test extends BaseCommand
                 : CLI::error('❌ CURL is actually disabled so your app could not be able to send data to Inspector.');
         }, 'test', 'Check CURL extension');
 
-        inspector()->addSegment(function (Segment $segment) {
+        inspector()->addSegment(static function () {
             sleep(1);
         }, 'query', 'SELECT name, (SELECT COUNT(*) FROM orders WHERE user_id = users.id) AS order_count FROM users');
 
-        inspector()->reportException(new \Exception('First Exception Detected'));
+        inspector()->reportException(new Exception('First Exception Detected'));
+        CLI::write('Open the dashboard and check your first exception: https://app.inspector.dev', 'yellow');
 
         inspector()->transaction()->setResult('success');
 

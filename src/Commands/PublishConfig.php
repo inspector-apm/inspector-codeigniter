@@ -14,7 +14,7 @@ class PublishConfig extends BaseCommand
 
     public function run(array $params)
     {
-        // Copy config file
+        // Copy the config file
         $source = __DIR__ . '/../Config/Inspector.php';
         $destination = APPPATH . 'Config/Inspector.php';
 
