@@ -31,6 +31,8 @@ Events::on('pre_system', static function () {
     $originalHandler = set_exception_handler(function (\Throwable $e) use ($exceptions) {
         // Report to Inspector
         inspector()->reportException($e);
+        // todo: Find a way to report the status code
+        inspector()->transaction()->setResult('error');
 
         // Call the original handler
         if (is_callable($exceptions->exceptionHandler)) {
