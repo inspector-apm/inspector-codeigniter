@@ -9,7 +9,7 @@ Connect CodeIgniter 4 applications to the Inspector monitoring dashboard.
 
 ## Official maintainer
 
-> This repository is maintained by [Prysis](http://www.prysis.co.za/) - sales@prysis.co.za
+> This library was built in collaboration with [Prysis](http://www.prysis.co.za/) - sales@prysis.co.za
 
 
 ## Installation
