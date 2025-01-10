@@ -53,13 +53,24 @@ class WebRequestMonitoringFilter implements FilterInterface
         }
 
         inspector()
-            ->startTransaction($request->getMethod() . ' ' . $matchedRoute[0])
+            ->startTransaction($request->getMethod() . ' ' . $this->normalizeURI($matchedRoute[0]))
             ->addContext('Request Body', $request->getBody())
             ->markAsRequest();
 
         /*if (service('auth')->isLoggedIn()) {
             inspector()->transaction()->withUser();
         }*/
+    }
+
+    /**
+     * Consistent format for URI.
+     *
+     * @param string $uri
+     * @return string
+     */
+    protected function normalizeURI(string $uri): string
+    {
+        return '/' . \trim($uri, '/');
     }
 
     /**
