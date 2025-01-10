@@ -92,7 +92,7 @@ class Autoload extends AutoloadConfig
 
 ## Official documentation
 
-**[Check out the official documentation](https://docs.inspector.dev/codeigniter)**
+**[Check out the official documentation](https://docs.inspector.dev/guides/codeigniter)**
 
 ## Contributing
 
