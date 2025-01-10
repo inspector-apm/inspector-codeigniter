@@ -74,10 +74,10 @@ class Autoload extends AutoloadConfig
 }
 ```
 
-The helper provides a shortcut to the inspector instance. It must first be loaded using the `helper()` method:
+The helper provides a shortcut to the inspector instance.
 
 ```php
-// Load the helper function
+// Load the helper if you haven't added it to Autoload.php
 helper('inspector');
 
 // Add custom segments
