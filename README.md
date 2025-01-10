@@ -53,22 +53,7 @@ php spark inspector:test
 
 ## Helper
 
-The helper provides a shortcut to the inspector instance. It must first be loaded using the `helper()` method:
-
-```php
-// Load the helper function
-helper('inspector');
-
-// Add custom segments
-$json = inspector()->addSegment(function () {
-    return file_get_contents('auth.json');
-}, 'http', 'READ auth.json');
-
-// Report an exception
-inspector()->reportException(new \Exception("Whoops there's an error here."));
-```
-
-**We highly recommend** adding the helper in the `Config/Autoload.php` configuration class to make it available 
+**We highly recommend** adding the helper in the `Config/Autoload.php` configuration class to make it available
 globally into the application:
 
 ```php
@@ -87,6 +72,21 @@ class Autoload extends AutoloadConfig
      */
     public $helpers = ['inspector'];
 }
+```
+
+The helper provides a shortcut to the inspector instance. It must first be loaded using the `helper()` method:
+
+```php
+// Load the helper function
+helper('inspector');
+
+// Add custom segments
+$json = inspector()->addSegment(function () {
+    return file_get_contents('auth.json');
+}, 'http', 'READ auth.json');
+
+// Report an exception
+inspector()->reportException(new \Exception("Whoops there's an error here."));
 ```
 
 
