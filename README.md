@@ -74,13 +74,13 @@ class Autoload extends AutoloadConfig
 }
 ```
 
-The helper provides a shortcut to the inspector instance.
+The helper provides a shortcut to the inspector instance to monitor custom code blocks or manually report specific exceptions.
 
 ```php
 // Load the helper if you haven't added it to Autoload.php
 helper('inspector');
 
-// Add custom segments
+// Monitor custom code blocks
 $json = inspector()->addSegment(function () {
     return file_get_contents('auth.json');
 }, 'http', 'READ auth.json');
