@@ -43,10 +43,11 @@ inspector.ingestionKey = '974yn8c34ync8xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 ## HTTP Request Monitoring
 
-The package provides your application with the `inspector` filter that you can use to monitor all 
+The package provides your application with the `inspector` filter that you can use to monitor 
 incoming HTTP requests.
 
-**We highly recommend** to add `inspector` to the global filters in your `app/Config/Filter.php` configuration class:
+**We highly recommend** to add `inspector` to the global filters in your `app/Config/Filter.php` configuration class
+in order to monitor all HTTP requests:
 
 ```php
 class Filters extends BaseFilters
@@ -72,6 +73,7 @@ class Filters extends BaseFilters
 }
 ```
 
+> You can turn off monitoring using the `ignoreRoutes` configuration property: https://docs.inspector.dev/guides/codeigniter/configuration#ignore-routes 
 
 ## Verify And Deploy
 
