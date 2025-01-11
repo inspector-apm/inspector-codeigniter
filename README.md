@@ -62,11 +62,11 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             ...,
-            'inspector'
+            'inspector',
         ],
         'after' => [
            ...,
-           'inspector'
+           'inspector',
         ],
     ];
 
