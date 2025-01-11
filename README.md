@@ -41,6 +41,38 @@ inspector.ingestionKey = '974yn8c34ync8xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 ```
 
 
+## HTTP Request Monitoring
+
+The package provides your application with the `inspector` filter that you can use to monitor all 
+incoming HTTP requests.
+
+**We highly recommend** to add `inspector` to the global filters in your `app/Config/Filter.php` configuration class:
+
+```php
+class Filters extends BaseFilters
+{
+
+    /**
+     * List of filter aliases that are always
+     * applied before and after every request.
+     *
+     * @var array<string, array<string, array<string, string>>>|array<string, list<string>>
+     */
+    public array $globals = [
+        'before' => [
+            ...,
+            'inspector'
+        ],
+        'after' => [
+           ...,
+           'inspector'
+        ],
+    ];
+
+}
+```
+
+
 ## Verify And Deploy
 
 Run the command below to check if your system is properly configured. If all checks are green you can deploy 

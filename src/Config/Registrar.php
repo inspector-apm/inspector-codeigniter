@@ -15,11 +15,11 @@ class Registrar
             'aliases' => [
                 'inspector' => WebRequestMonitoringFilter::class,
             ],
-            
-            'globals' => [
+
+            /*'globals' => [
                 'before' => ['inspector'],
                 'after' => ['inspector'],
-            ]
+            ]*/
         ];
     }
 }
