@@ -73,7 +73,7 @@ class Filters extends BaseFilters
 }
 ```
 
-> You can turn off monitoring using the `ignoreRoutes` configuration property: https://docs.inspector.dev/guides/codeigniter/configuration#ignore-routes 
+> You can eventually turn off monitoring using the `ignoreRoutes` configuration property: https://docs.inspector.dev/guides/codeigniter/configuration#ignore-routes 
 
 ## Verify And Deploy
 
