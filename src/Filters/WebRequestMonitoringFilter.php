@@ -64,9 +64,6 @@ class WebRequestMonitoringFilter implements FilterInterface
 
     /**
      * Consistent format for URI.
-     *
-     * @param string $uri
-     * @return string
      */
     protected function normalizeURI(string $uri): string
     {

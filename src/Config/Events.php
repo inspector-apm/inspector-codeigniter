@@ -4,6 +4,7 @@ namespace Inspector\CodeIgniter\Config;
 
 use CodeIgniter\Database\Query;
 use CodeIgniter\Events\Events;
+use Throwable;
 
 helper('inspector');
 
@@ -28,7 +29,7 @@ Events::on('pre_system', static function () {
     $exceptions = service('exceptions');
 
     // Store the original exception handler
-    $originalHandler = set_exception_handler(function (\Throwable $e) use ($exceptions) {
+    $originalHandler = set_exception_handler(static function (Throwable $e) use ($exceptions) {
         // Report to Inspector
         inspector()->reportException($e);
         // todo: Find a way to report the status code
@@ -36,7 +37,7 @@ Events::on('pre_system', static function () {
 
         // Call the original handler
         if (is_callable($exceptions->exceptionHandler)) {
-            call_user_func($exceptions->exceptionHandler, $e);
+            ($exceptions->exceptionHandler)($e);
         }
     });
 
@@ -64,7 +65,7 @@ Events::on('post_command', static function () {
 /**
  * Database Query
  */
-if (config('Inspector')->DBQuery??false) {
+if (config('Inspector')->DBQuery ?? false) {
     Events::on('DBQuery', static function (Query $query) {
         if (inspector()->canAddSegments()) {
             inspector()->startSegment('query', $query->getOriginalQuery())
@@ -73,4 +74,3 @@ if (config('Inspector')->DBQuery??false) {
         }
     });
 }
-

@@ -2,8 +2,8 @@
 
 namespace Inspector\CodeIgniter\Tests;
 
-use Inspector\Inspector;
 use Inspector\CodeIgniter\Tests\Support\TestCase;
+use Inspector\Inspector;
 
 /**
  * @internal
