@@ -30,7 +30,7 @@ class Inspector extends BaseConfig
     ];
 
     /**
-     * List the path you don't want to monitor (Support for wildcard "*").
+     * List the commands you don't want to monitor (Support for wildcard "*").
      *
      * @var array
      */
