@@ -4,6 +4,7 @@ namespace Inspector\CodeIgniter\Config;
 
 use CodeIgniter\Database\Query;
 use CodeIgniter\Events\Events;
+use Inspector\CodeIgniter\Utils;
 use Throwable;
 
 helper('inspector');
@@ -57,9 +58,37 @@ Events::on('post_controller_constructor', static function () {
  * Console Command
  */
 Events::on('pre_command', static function () {
+    /*
+     * Without a payload with information about the command that is being executed
+     * we can only intercept the fist command launched by CLI.
+     *
+     * We cannot identify commands executed from other commands or from a controller.
+     * They should be traced as segments inside the current transaction, but without a payload
+     * we can't do that.
+     */
+    if (\PHP_SAPI === 'cli') {
+        $args = \array_slice($_SERVER['argv'], 1);
+        $name = \array_shift($args);
+
+        if (\is_string($name)) {
+            // Check if it is in the ignore list
+            foreach (config('Inspector')->ignoreCommands??[] as $command) {
+                if (Utils::matchWithWildcard($name, $command)) {
+                    return;
+                }
+            }
+            // Start the transaction otherwise
+            inspector()
+                ->startTransaction($name)
+                ->setType('command');
+        }
+    }
 });
 
 Events::on('post_command', static function () {
+    if (\PHP_SAPI === 'cli' && inspector()->hasTransaction()) {
+        inspector()->transaction()->setResult('success');
+    }
 });
 
 /**

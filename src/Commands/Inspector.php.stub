@@ -30,6 +30,19 @@ class Inspector extends BaseConfig
     ];
 
     /**
+     * List the path you don't want to monitor (Support for wildcard "*").
+     *
+     * @var array
+     */
+    public $ignoreCommands = [
+        'inspector:install',
+        'serve',
+        'make:*',
+        'db:*',
+        'migrate',
+    ];
+
+    /**
      * Remote endpoint to send data.
      *
      * @var string
