@@ -53,7 +53,7 @@ class WebRequestMonitoringFilter implements FilterInterface
         }
 
         inspector()
-            ->startTransaction($request->getMethod() . ' ' . $this->normalizeURI($matchedRoute[0]))
+            ->startTransaction(\strtoupper($request->getMethod()) . ' ' . $this->normalizeURI($matchedRoute[0]))
             ->addContext('Request Body', $request->getBody())
             ->markAsRequest();
 
