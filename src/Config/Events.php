@@ -26,7 +26,7 @@ helper('inspector');
  *      Events::on('create', [$myInstance, 'myMethod']);
  */
 
-Events::on('pre_system', static function () {
+/*Events::on('pre_system', static function () {
     $exceptions = service('exceptions');
 
     // Store the original exception handler
@@ -52,7 +52,7 @@ Events::on('post_system', static function () {
 });
 
 Events::on('post_controller_constructor', static function () {
-});
+});*/
 
 /**
  * Console Command
