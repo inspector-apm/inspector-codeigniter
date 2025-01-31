@@ -47,7 +47,7 @@ class WebRequestMonitoringFilter implements FilterInterface
 
         if (
             ! $this->shouldBeMonitored($request)
-            || $this->isIgnored($matchedRoute[0])
+            || $this->isIgnored($matchedRoute)
         ) {
             return;
         }
@@ -79,14 +79,20 @@ class WebRequestMonitoringFilter implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        inspector()->transaction()->setResult($response->getStatusCode());
+        if (inspector()->hasTransaction()) {
+            inspector()->transaction()->setResult($response->getStatusCode());
+        }
     }
 
     /**
      * Determine if the current request is in the ignore list.
      */
-    protected function isIgnored(string $path): bool
+    protected function isIgnored(?array $matched): bool
     {
+        if (!$matched) {
+            return true;
+        }
+
         foreach ($this->config->ignoreRoutes as $pattern) {
             if (Utils::matchWithWildcard($path, $pattern)) {
                 return true;
