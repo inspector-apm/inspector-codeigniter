@@ -13,10 +13,6 @@
         {
             "email": "valerio@inspector.dev",
             "name": "Valerio Barbera"
-        },
-        {
-            "email": "benedict@prysis.co.za",
-            "name": "Benedict Tshaba"
         }
     ],
     "config": {
@@ -27,7 +23,7 @@
     "require": {
         "php": ">=7.4",
         "codeigniter4/framework": "^4.0",
-        "inspector-apm/inspector-php": "^3.7"
+        "inspector-apm/inspector-php": "^3.11"
     },
     "autoload": {
         "psr-4": {
