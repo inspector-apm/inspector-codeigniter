@@ -94,7 +94,7 @@ class WebRequestMonitoringFilter implements FilterInterface
         }
 
         foreach ($this->config->ignoreRoutes as $pattern) {
-            if (Utils::matchWithWildcard($path, $pattern)) {
+            if (Utils::matchWithWildcard($this->normalizeURI($matched[0]), $pattern)) {
                 return true;
             }
         }

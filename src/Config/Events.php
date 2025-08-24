@@ -97,7 +97,7 @@ Events::on('post_command', static function () {
 if (config('Inspector')->DBQuery ?? false) {
     Events::on('DBQuery', static function (Query $query) {
         if (inspector()->canAddSegments()) {
-            inspector()->startSegment('query', $query->getOriginalQuery())
+            inspector()->startSegment('db.query', $query->getOriginalQuery())
                 ->addContext('Db', ['sql' => $query->getQuery()])
                 ->end($query->getDuration() * 1000);
         }
